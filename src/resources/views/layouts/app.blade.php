@@ -16,26 +16,21 @@
         <a class="header__logo" href="/">
             <img src="{{ asset('storage/image/logo.svg') }}" alt="COACHTECH">
         </a>
-        <div class="search-bar">
-            <form action="{{ route('index') }}" method="GET" class="search-form">
-                <input type="text" name="search" placeholder="なにをお探しですか？" value="{{ request('search') }}" class="search-input">
-                <button type="submit" class="search-icon-btn">
-                    <img src="{{ asset('storage/image/検索アイコン1.jpg') }}" alt="検索" class="search-icon">
-                </button>
+        <nav class="header__nav">
+            <form action="{{ route('attendance.index') }}" method="GET">
+                <button type="submit" class="nav-btn">勤怠</button>
             </form>
-        </div>
-        <div class="header__nav">
+            <form action="{{ route('attendance.list') }}" method="GET">
+                <button type="submit" class="nav-btn">勤怠一覧</button>
+            </form>
+            <form action="{{ route('request.index') }}" method="GET">
+                <button type="submit" class="nav-btn">申請</button>
+            </form>
             <form action="{{ route('logout') }}" method="POST" class="logout-form">
                 @csrf
                 <button type="submit" class="logout-btn">ログアウト</button>
             </form>
-            <form action="{{ route('profile.index') }}" method="GET">
-                <button type="submit" class="mypage-btn">マイページ</button>
-            </form>
-            <form action="{{ route('sell') }}" method="GET">
-                <button type="submit" class="sell-btn">出品</button>
-            </form>
-        </div>
+        </nav>
     </header>
 
     @yield('content')

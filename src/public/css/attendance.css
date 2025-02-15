@@ -1,0 +1,137 @@
+/* ======== 既存の出勤・退勤画面用スタイル（変更なし） ======== */
+.attendance-container {
+    text-align: center;
+    max-width: 400px;
+    margin: 50px auto;
+}
+
+
+.status-area {
+    margin-bottom: 10px;
+}
+
+.status-label {
+    background: #ccc;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.date-time-area {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.time {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.attendance-btn {
+    background: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.break-btn {
+    background: white;
+    color: black;
+    padding: 10px 20px;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* ======== 勤怠一覧用のスタイルを追加 ======== */
+.attendance-list-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.attendance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.attendance-header h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.attendance-header .month-nav {
+    display: flex;
+    align-items: center;
+}
+
+.month-nav button {
+    background-color: #ddd;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.month-nav button:hover {
+    background-color: #ccc;
+}
+
+/* 勤怠一覧のテーブル */
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.attendance-table th,
+.attendance-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.attendance-table th {
+    background-color: #333;
+    color: white;
+}
+
+.attendance-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.attendance-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* 詳細ボタン */
+.details-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.details-btn:hover {
+    background-color: #0056b3;
+}

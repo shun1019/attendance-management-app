@@ -13,17 +13,17 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        
+
     }
 
     public function boot()
     {
         Fortify::registerView(function () {
-            return view('auth.register'); // 登録画面
+            return view('auth.register');
         });
 
         Fortify::loginView(function () {
-            return view('auth.login'); // ログイン画面
+            return view('auth.login');
         });
 
         Fortify::authenticateUsing(function (Request $request) {

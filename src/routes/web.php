@@ -1,31 +1,47 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\RequestController;
+use App\Http\Controllers\Admin\AdminAttendanceController;
+use App\Http\Controllers\Admin\AdminRequestController;
+use App\Http\Controllers\Admin\AdminStaffController;
 
-/**
- * 認証ルート（Laravel Fortify）
- */
-Route::group(['middleware' => ['guest']], function () {
-    Route::get('/register', function () {
-        return view('auth.register');
-    })->name('register');
-
-    Route::get('/login', function () {
-        return view('auth.login');
-    })->name('login');
+Route::get('/', function () {
+    return redirect('/login');
 });
 
-/**
- * ログイン後のページ（ダッシュボード）
- */
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+require __DIR__ . '/auth.php';
 
-/**
- * ログアウト
- */
-Route::post('/logout', function () {
-    auth()->logout();
-    return redirect('/login');
-})->name('logout');
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('attendance')->name('attendance.')->group(function () {
+        Route::get('/', [AttendanceController::class, 'index'])->name('index');
+        Route::post('/start', [AttendanceController::class, 'start'])->name('start');
+        Route::post('/end', [AttendanceController::class, 'end'])->name('end');
+        Route::post('/break/start', [AttendanceController::class, 'breakStart'])->name('break.start');
+        Route::post('/break/end', [AttendanceController::class, 'breakEnd'])->name('break.end');
+        Route::get('/list', [AttendanceController::class, 'list'])->name('list');
+        Route::get('/{id}', [AttendanceController::class, 'show'])->where('id', '[0-9]+')->name('show');
+
+        Route::post('/{id}/request', [AttendanceController::class, 'requestUpdate'])->where('id', '[0-9]+')->name('request');
+    });
+
+    Route::get('/requests', [RequestController::class, 'index'])->name('request.index');
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('attendance')->name('attendance.')->group(function () {
+        Route::get('/list', [AdminAttendanceController::class, 'index'])->name('index');
+        Route::get('/{id}', [AdminAttendanceController::class, 'show'])->where('id', '[0-9]+')->name('show');
+        Route::get('/staff/{id}', [AdminAttendanceController::class, 'listByStaff'])->where('id', '[0-9]+')->name('staff');
+    });
+
+    Route::prefix('staff')->name('staff.')->group(function () {
+        Route::get('/list', [AdminStaffController::class, 'index'])->name('index');
+    });
+
+    Route::prefix('requests')->name('request.')->group(function () {
+        Route::get('/', [AdminRequestController::class, 'index'])->name('index');
+        Route::get('/approve/{id}', [AdminRequestController::class, 'approve'])->where('id', '[0-9]+')->name('approve');
+    });
+});

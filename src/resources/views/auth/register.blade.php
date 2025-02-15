@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', '会員登録')
+@section('title', 'ユーザー会員登録')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/auth/register.css') }}">
@@ -15,7 +15,7 @@
         <div class="register-form__group">
             <label for="username">名前
             </label>
-            <input type="text" name="username" id="username" value="{{ old('username') }}">
+            <input type="text" name="name" id="name" value="{{ old('name') }}">
             @error('username')
             <div class="error">{{ $message }}</div>
             @enderror
