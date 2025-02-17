@@ -14,51 +14,65 @@
     <p class="success-message">{{ session('success') }}</p>
     @endif
 
-    {{-- 申請中メッセージ --}}
-    @if ($pendingRequest)
-    <p class="pending-message">修正申請中（管理者の承認待ち）</p>
-    @else
-    <form action="{{ route('attendance.request', ['id' => $attendance->id]) }}" method="POST">
-        @csrf
-        <table class="attendance-detail-table">
-            <tr>
-                <th>名前</th>
-                <td>{{ $attendance->user->name }}</td>
-            </tr>
-            <tr>
-                <th>日付</th>
-                <td>{{ \Carbon\Carbon::parse($attendance->work_date)->format('Y年m月d日') }}</td>
-            </tr>
-            <tr>
-                <th>出勤・退勤</th>
-                <td>
-                    <input type="time" name="start_time" value="{{ optional($attendance->start_time)->format('H:i') }}">
-                    〜
-                    <input type="time" name="end_time" value="{{ optional($attendance->end_time)->format('H:i') }}">
-                </td>
-            </tr>
-            <tr>
-                <th>休憩</th>
-                <td>
-                    @foreach ($attendance->breakRecords as $break)
-                    <div>
-                        <input type="time" name="break_times[{{ $loop->index }}][start]" value="{{ optional($break->break_start)->format('H:i') }}">
-                        〜
-                        <input type="time" name="break_times[{{ $loop->index }}][end]" value="{{ optional($break->break_end)->format('H:i') }}">
-                    </div>
-                    @endforeach
-                </td>
-            </tr>
-            <tr>
-                <th>備考</th>
-                <td><textarea name="reason" required></textarea></td>
-            </tr>
-        </table>
+    <table class="attendance-detail-table">
+        <tr>
+            <th>名前</th>
+            <td>{{ $attendance->user->name }}</td>
+        </tr>
+        <tr>
+            <th>日付</th>
+            <td>{{ \Carbon\Carbon::parse($attendance->work_date)->format('Y年m月d日') }}</td>
+        </tr>
+        <tr>
+            <th>出勤・退勤</th>
+            <td>
+                <input type="time" name="start_time"
+                    value="{{ $pendingRequest && $pendingRequest->new_start_time ? $pendingRequest->new_start_time : optional($attendance->start_time)->format('H:i') }}"
+                    {{ $pendingRequest ? 'disabled' : '' }}>
+                〜
+                <input type="time" name="end_time"
+                    value="{{ $pendingRequest && $pendingRequest->new_end_time ? $pendingRequest->new_end_time : optional($attendance->end_time)->format('H:i') }}"
+                    {{ $pendingRequest ? 'disabled' : '' }}>
+            </td>
+        </tr>
 
-        <div class="button-area">
+        @php
+        $breakTimes = $pendingRequest && $pendingRequest->new_break_times ? json_decode($pendingRequest->new_break_times, true) : $attendance->breakRecords;
+        @endphp
+        @foreach ($breakTimes as $index => $break)
+        <tr>
+            <th>休憩{{ $index + 1 }}</th>
+            <td>
+                <input type="time"
+                    value="{{ is_array($break) ? $break['start'] : optional($break->break_start)->format('H:i') }}"
+                    {{ $pendingRequest ? 'disabled' : '' }}>
+                〜
+                <input type="time"
+                    value="{{ is_array($break) ? $break['end'] : optional($break->break_end)->format('H:i') }}"
+                    {{ $pendingRequest ? 'disabled' : '' }}>
+            </td>
+        </tr>
+        @endforeach
+
+        <tr>
+            <th>備考</th>
+            <td>
+                <textarea name="reason" {{ $pendingRequest ? 'disabled' : '' }}>
+                {{ $pendingRequest && $pendingRequest->reason ? $pendingRequest->reason : $attendance->reason }}
+                </textarea>
+            </td>
+        </tr>
+    </table>
+
+    @if (!$pendingRequest)
+    <div class="button-area">
+        <form action="{{ route('attendance.request', ['id' => $attendance->id]) }}" method="POST">
+            @csrf
             <button type="submit" class="btn btn-primary">修正</button>
-        </div>
-    </form>
+        </form>
+    </div>
+    @else
+    <p class="pending-message">*承認待ちのため修正はできません。</p>
     @endif
 </div>
 @endsection

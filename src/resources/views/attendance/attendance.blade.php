@@ -47,7 +47,7 @@
     <div class="button-group">
         <form action="{{ route('attendance.break.end') }}" method="POST">
             @csrf
-            <button type="submit" class="btn btn-success">休憩終了</button>
+            <button type="submit" class="btn btn-success">休憩戻</button>
         </form>
     </div>
     @elseif ($attendance->status === 3)

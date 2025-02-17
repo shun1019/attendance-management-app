@@ -1,4 +1,4 @@
-/* ======== 既存の出勤・退勤画面用スタイル（変更なし） ======== */
+/* ======== 既存の出勤・退勤画面用スタイル ======== */
 .attendance-container {
     text-align: center;
     max-width: 400px;
@@ -68,30 +68,29 @@
     border-radius: 8px;
 }
 
-.attendance-header h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
+.month-selector {
+    margin: 30px 0 30px 0;
+    border-radius: 4px;
+    background-color: #fff;
+    text-align: center;
+    height: 50px;
+    padding-top: 18px;
 }
 
-.attendance-header .month-nav {
-    display: flex;
-    align-items: center;
-}
-
-.month-nav button {
+.month-selector button {
     background-color: #ddd;
     border: none;
     padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
+    margin: 0 100px 0 100px;
 }
 
 .month-nav button:hover {
     background-color: #ccc;
 }
 
-/* 勤怠一覧のテーブル */
 .attendance-table {
     width: 100%;
     border-collapse: collapse;
@@ -100,38 +99,172 @@
     overflow: hidden;
 }
 
-.attendance-table th,
+.attendance-table th {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 4px solid #ddd;
+    background-color: #fff;
+    color: #000;
+}
+
 .attendance-table td {
     padding: 12px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 2px solid #ddd;
 }
 
-.attendance-table th {
-    background-color: #333;
-    color: white;
-}
-
-.attendance-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.attendance-table tr:hover {
-    background-color: #f1f1f1;
-}
-
-/* 詳細ボタン */
 .details-btn {
-    background-color: #007bff;
-    color: white;
+    background-color: #fff;
     padding: 6px 10px;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
     font-size: 0.9rem;
     text-decoration: none;
 }
 
-.details-btn:hover {
-    background-color: #0056b3;
+/* ======== 勤怠詳細ページのスタイル ======== */
+.attendance-detail-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.attendance-detail-container h1 {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.attendance-detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.attendance-detail-table th,
+.attendance-detail-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+}
+
+.attendance-detail-table th {
+    background: #333;
+    color: #fff;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.attendance-detail-table td {
+    background: #f9f9f9;
+}
+
+.attendance-detail-table input[type="time"],
+.attendance-detail-table textarea {
+    width: 80px;
+    padding: 6px;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.attendance-detail-table textarea {
+    width: 90%;
+    height: 50px;
+    resize: none;
+    padding: 10px;
+}
+
+.break-time-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.success-message {
+    color: green;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.pending-message {
+    color: red;
+    padding: 10px;
+    text-align: end;
+}
+
+.button-area {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.primary-btn {
+    background: #000;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.primary-btn:hover {
+    background: #333;
+}
+
+/* ======== 申請一覧ページのスタイル ======== */
+.request-list-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.request-tabs {
+    display: flex;
+    border-bottom: 4px solid #000;
+    margin-bottom: 20px;
+}
+
+.tab-link {
+    padding: 10px 20px;
+    font-size: 1rem;
+    text-decoration: none;
+    color: black;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.tab-link.active {
+    font-weight: bold;
+}
+
+.request-table.active {
+    display: block;
+}
+
+.request-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.request-table th,
+.request-table td {
+    padding: 12px;
+    text-align: center;
+    border-radius: 8px;
+    border-bottom: 2px solid #ddd;
+}
+
+.request-table th {
+    background-color: #fff;
+    border-bottom: 4px solid #ddd;
+    color: #4d4d4d;
 }

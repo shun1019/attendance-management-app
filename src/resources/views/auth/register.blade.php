@@ -13,10 +13,10 @@
     <form action="{{ route('register') }}" method="POST">
         @csrf
         <div class="register-form__group">
-            <label for="username">名前
+            <label for="name">名前
             </label>
             <input type="text" name="name" id="name" value="{{ old('name') }}">
-            @error('username')
+            @error('name')
             <div class="error">{{ $message }}</div>
             @enderror
         </div>

@@ -10,8 +10,8 @@ class CreateBreakRecordsTable extends Migration
     {
         Schema::create('break_records', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('attendance_id')->constrained('attendances');
-            $table->timestamp('break_start')->nullable();
+            $table->foreignId('attendance_id')->constrained('attendances')->onDelete('cascade');
+            $table->timestamp('break_start');
             $table->timestamp('break_end')->nullable();
             $table->timestamps();
         });

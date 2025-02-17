@@ -23,7 +23,7 @@
             <form action="{{ route('attendance.list') }}" method="GET">
                 <button type="submit" class="nav-btn">勤怠一覧</button>
             </form>
-            <form action="{{ route('request.index') }}" method="GET">
+            <form action="{{ route('stamp_correction_request.list') }}" method="GET">
                 <button type="submit" class="nav-btn">申請</button>
             </form>
             <form action="{{ route('logout') }}" method="POST" class="logout-form">

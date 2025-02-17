@@ -37,17 +37,10 @@
                 <td>{{ \Carbon\Carbon::parse($attendance->work_date)->isoFormat('MM/DD (ddd)') }}</td>
                 <td>{{ optional($attendance->start_time)->format('H:i') ?? '--:--' }}</td>
                 <td>{{ optional($attendance->end_time)->format('H:i') ?? '--:--' }}</td>
-
-                {{-- 休憩時間の合計を取得 --}}
                 <td>
-                    @if ($attendance->breakRecords->count() > 0)
                     {{ gmdate("H:i", $attendance->getTotalBreakTime()) }}
-                    @else
-                    "--:--"
-                    @endif
                 </td>
 
-                {{-- 勤務合計時間を計算（退勤 - 出勤 - 休憩時間） --}}
                 <td>
                     @if ($attendance->start_time && $attendance->end_time)
                     {{ gmdate("H:i", strtotime($attendance->end_time) - strtotime($attendance->start_time) - $attendance->getTotalBreakTime()) }}
@@ -56,10 +49,9 @@
                     @endif
                 </td>
 
-                {{-- 詳細ボタン --}}
                 <td>
                     <form action="{{ route('attendance.show', ['id' => $attendance->id]) }}" method="GET">
-                        <button type="submit" class="btn btn-link">詳細</button>
+                        <button type="submit" class="details-btn">詳細</button>
                     </form>
                 </td>
             </tr>
