@@ -14,6 +14,6 @@ class AdminMiddleware
             return $next($request);
         }
 
-        abort(403, '管理者権限が必要です');
+        abort(403, '管理者のみアクセスできます。');
     }
 }

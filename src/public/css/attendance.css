@@ -5,7 +5,6 @@
     margin: 50px auto;
 }
 
-
 .status-area {
     margin-bottom: 10px;
 }
@@ -30,12 +29,13 @@
 .button-group {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 30px;
 }
 
-.attendance-btn {
+.attendance-btn,
+.leaving-btn {
     background: black;
-    color: white;
+    color: #fff;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -43,10 +43,10 @@
 }
 
 .break-btn {
-    background: white;
-    color: black;
+    background: #fff;
+    color: #000;
     padding: 10px 20px;
-    border: 2px solid black;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -69,8 +69,8 @@
 }
 
 .month-selector {
-    margin: 30px 0 30px 0;
-    border-radius: 4px;
+    margin: 30px 0;
+    border-radius: 8px;
     background-color: #fff;
     text-align: center;
     height: 50px;
@@ -104,7 +104,6 @@
     text-align: center;
     border-bottom: 4px solid #ddd;
     background-color: #fff;
-    color: #000;
 }
 
 .attendance-table td {
@@ -124,71 +123,65 @@
 
 /* ======== 勤怠詳細ページのスタイル ======== */
 .attendance-detail-container {
-    max-width: 600px;
+    max-width: 800px;
     margin: 50px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .attendance-detail-container h1 {
-    font-weight: bold;
-    margin-bottom: 20px;
+    padding-bottom: 30px;
 }
 
 .attendance-detail-table {
+    background: #fff;
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    border-radius: 8px;
 }
 
 .attendance-detail-table th,
 .attendance-detail-table td {
+    height: 50px;
     padding: 12px;
     text-align: center;
     border-bottom: 2px solid #ddd;
 }
 
 .attendance-detail-table th {
-    background: #333;
-    color: #fff;
+    color: #4d4d4d;
     font-weight: bold;
     text-align: left;
-    padding-left: 20px;
+    padding-left: 40px;
 }
 
-.attendance-detail-table td {
-    background: #f9f9f9;
-}
-
-.attendance-detail-table input[type="time"],
-.attendance-detail-table textarea {
-    width: 80px;
-    padding: 6px;
-    font-size: 1rem;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    text-align: center;
-}
-
-.attendance-detail-table textarea {
-    width: 90%;
+.attendance-detail-table td textarea {
+    width: 50%;
     height: 50px;
     resize: none;
-    padding: 10px;
+    margin: 20px;
+    text-align: left;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.attendance-detail-table input[type="time"]
+{
+    width: 80px;
+    padding: 6px;
+    margin: 0 30px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 .break-time-container {
     display: flex;
-    flex-direction: column;
     gap: 5px;
 }
 
 .success-message {
     color: green;
     font-size: 1rem;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .pending-message {
@@ -198,8 +191,8 @@
 }
 
 .button-area {
-    margin-top: 20px;
-    text-align: center;
+    text-align: end;
+    padding-top: 30px;
 }
 
 .primary-btn {
@@ -210,7 +203,6 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s;
 }
 
 .primary-btn:hover {
@@ -235,7 +227,7 @@
     padding: 10px 20px;
     font-size: 1rem;
     text-decoration: none;
-    color: black;
+    color: #000;
     border-bottom: 3px solid transparent;
     transition: all 0.3s ease;
 }

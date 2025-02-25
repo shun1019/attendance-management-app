@@ -44,7 +44,7 @@
                     <td>{{ $request->reason }}</td>
                     <td>{{ \Carbon\Carbon::parse($request->created_at)->format('Y/m/d') }}</td>
                     <td>
-                        <form action="{{ route('stamp_correction_request.show', ['id' => $request->id]) }}" method="GET">
+                        <form action="{{ route('attendance.show', ['id' => $request->attendance->id]) }}" method="GET">
                             <button type="submit" class="details-btn">詳細</button>
                         </form>
                     </td>

@@ -14,13 +14,13 @@ class AttendanceRequestController extends Controller
 
         // 承認待ちの申請一覧を取得
         $pendingRequests = AttendanceRequest::where('user_id', $userId)
-            ->where('status', 0) // 0: 承認待ち
+            ->where('status', 0)
             ->with('attendance', 'user')
             ->get();
 
         // 承認済みの申請一覧を取得
         $approvedRequests = AttendanceRequest::where('user_id', $userId)
-            ->where('status', 1) // 1: 承認済み
+            ->where('status', 1)
             ->with('attendance', 'user')
             ->get();
 

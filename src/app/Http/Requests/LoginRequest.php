@@ -6,11 +6,6 @@ use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 
 class LoginRequest extends FortifyLoginRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
         return true;

@@ -42,7 +42,7 @@ class FortifyServiceProvider extends ServiceProvider
 
             if (!$user || !Hash::check($validated['password'], $user->password)) {
                 throw ValidationException::withMessages([
-                    Fortify::username() => ['ログイン情報が登録されていません。'],
+                    'email' => ['ログイン情報が登録されていません。'],
                 ]);
             }
 
