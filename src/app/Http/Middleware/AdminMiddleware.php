@@ -10,10 +10,10 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role === 1) {
-            return $next($request);
+        if (!Auth::check() || Auth::user()->role !== 1) {
+            abort(403, '管理者権限が必要です。');
         }
 
-        abort(403, '管理者のみアクセスできます。');
+        return $next($request);
     }
 }

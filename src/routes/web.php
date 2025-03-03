@@ -14,7 +14,7 @@ Route::get('/', function () {
 
 require __DIR__ . '/auth.php';
 
-// 🔹 一般ユーザー向け
+// 一般ユーザー向け
 Route::middleware(['auth'])->group(function () {
     Route::prefix('attendance')->name('attendance.')->group(function () {
         Route::get('/', [AttendanceController::class, 'index'])->name('index');
@@ -27,35 +27,37 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/{id}/request', [AttendanceController::class, 'requestUpdate'])->where('id', '[0-9]+')->name('request');
     });
 
-    // 🔹 勤怠修正申請（一般ユーザー）
     Route::prefix('stamp_correction_request')->name('stamp_correction_request.')->group(function () {
         Route::get('/list', [AttendanceRequestController::class, 'index'])->name('list');
         Route::get('/{id}', [AttendanceRequestController::class, 'show'])->where('id', '[0-9]+')->name('show');
     });
 });
 
-// 🔹 管理者向け
+// 管理者向け
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AdminAuthController::class, 'login'])->name('login');
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
     Route::middleware(['auth', 'admin'])->group(function () {
-        Route::delete('/logout', [AdminAuthController::class, 'logout'])->name('logout');
-
         Route::prefix('attendance')->name('attendance.')->group(function () {
             Route::get('/list', [AdminAttendanceController::class, 'index'])->name('index');
             Route::get('/{id}', [AdminAttendanceController::class, 'show'])->where('id', '[0-9]+')->name('show');
-            Route::put('/{id}', [AdminAttendanceController::class, 'update'])->where('id', '[0-9]+')->name('update'); // 勤怠情報更新
+            Route::put('/{id}', [AdminAttendanceController::class, 'update'])->where('id', '[0-9]+')->name('update');
             Route::get('/staff/{id}', [AdminAttendanceController::class, 'listByStaff'])->where('id', '[0-9]+')->name('staff');
         });
 
         Route::prefix('staff')->name('staff.')->group(function () {
             Route::get('/list', [AdminStaffController::class, 'index'])->name('index');
+            Route::get('/{id}', [AdminStaffController::class, 'show'])->where('id', '[0-9]+')->name('show');
+            Route::get('/{id}/attendance/{attendance_id}', [AdminAttendanceController::class, 'attendanceDetail'])
+                ->where(['id' => '[0-9]+', 'attendance_id' => '[0-9]+'])
+                ->name('attendance');
         });
 
-        // 🔹 修正申請（管理者）
         Route::prefix('stamp_correction_request')->name('stamp_correction_request.')->group(function () {
             Route::get('/list', [AdminRequestController::class, 'index'])->name('list');
+            Route::get('/{id}', [AdminRequestController::class, 'show'])->where('id', '[0-9]+')->name('show');
             Route::post('/approve/{id}', [AdminRequestController::class, 'approve'])->where('id', '[0-9]+')->name('approve');
         });
     });

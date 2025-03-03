@@ -6,11 +6,11 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
-use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
@@ -36,17 +36,34 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->singleton(VerifyEmailViewResponse::class, fn() => new SimpleViewResponse(view('auth.verify-email')));
         Fortify::verifyEmailView(fn() => view('auth.verify-email'));
 
-        Fortify::authenticateUsing(function (LoginRequest $request) {
-            $validated = $request->validated();
-            $user = User::where('email', $validated['email'])->first();
+        Fortify::authenticateUsing(function (Request $request) {
+            $user = User::where('email', $request->email)->first();
 
-            if (!$user || !Hash::check($validated['password'], $user->password)) {
+            if (!$user || !Hash::check($request->password, $user->password)) {
                 throw ValidationException::withMessages([
                     'email' => ['ログイン情報が登録されていません。'],
                 ]);
             }
 
+            if (request()->is('admin/*') && $user->role !== 1) {
+                throw ValidationException::withMessages([
+                    'email' => ['管理者権限がありません。'],
+                ]);
+            }
+
             return $user;
+        });
+
+        Fortify::redirects('login', function () {
+            return Auth::user()->role === 1
+                ? route('admin.attendance.index')
+                : route('attendance.index');
+        });
+
+        Fortify::redirects('logout', function () {
+            return Auth::user()->role === 1
+                ? route('admin.login')
+                : route('login');
         });
 
         RateLimiter::for('login', fn(Request $request) => Limit::perMinute(5)->by(

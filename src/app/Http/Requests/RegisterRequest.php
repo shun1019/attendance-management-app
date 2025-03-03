@@ -24,13 +24,13 @@ class RegisterRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'お名前を入力してください。',
-            'email.required' => 'メールアドレスを入力してください。',
-            'email.email' => 'メールアドレスの形式が正しくありません。',
-            'password.required' => 'パスワードを入力してください。',
-            'password.min' => 'パスワードは8文字以上で入力してください。',
-            'password_confirmation.required' => '確認用パスワードを入力してください。',
-            'password_confirmation.same' => 'パスワードと一致しません。',
+            'name.required' => 'お名前を入力してください',
+            'email.required' => 'メールアドレスを入力してください',
+            'email.email' => 'メールアドレスの形式が正しくありません',
+            'password.required' => 'パスワードを入力してください',
+            'password.min' => 'パスワードは8文字以上で入力してください',
+            'password_confirmation.required' => '確認用パスワードを入力してください',
+            'password_confirmation.same' => 'パスワードと一致しません',
         ];
     }
 }

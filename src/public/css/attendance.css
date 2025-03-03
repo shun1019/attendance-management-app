@@ -178,14 +178,14 @@
     gap: 5px;
 }
 
-.success-message {
-    color: green;
+.error-message {
+    color: rgb(255, 0, 0);
     font-size: 1rem;
     margin-bottom: 20px;
 }
 
 .pending-message {
-    color: red;
+    color: rgb(255, 11, 11);
     padding: 10px;
     text-align: end;
 }
@@ -219,7 +219,7 @@
 
 .request-tabs {
     display: flex;
-    border-bottom: 4px solid #000;
+    border-bottom: 1px solid #000;
     margin-bottom: 20px;
 }
 
@@ -228,7 +228,6 @@
     font-size: 1rem;
     text-decoration: none;
     color: #000;
-    border-bottom: 3px solid transparent;
     transition: all 0.3s ease;
 }
 

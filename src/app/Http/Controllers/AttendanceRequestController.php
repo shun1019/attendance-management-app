@@ -8,17 +8,18 @@ use Illuminate\Support\Facades\Auth;
 
 class AttendanceRequestController extends Controller
 {
+    /**
+     * ユーザーの修正申請一覧（承認待ち・承認済み）
+     */
     public function index()
     {
         $userId = Auth::id();
 
-        // 承認待ちの申請一覧を取得
         $pendingRequests = AttendanceRequest::where('user_id', $userId)
             ->where('status', 0)
             ->with('attendance', 'user')
             ->get();
 
-        // 承認済みの申請一覧を取得
         $approvedRequests = AttendanceRequest::where('user_id', $userId)
             ->where('status', 1)
             ->with('attendance', 'user')
@@ -28,5 +29,15 @@ class AttendanceRequestController extends Controller
             'pendingRequests' => $pendingRequests,
             'approvedRequests' => $approvedRequests
         ]);
+    }
+
+    /**
+     * 申請の詳細を表示
+     */
+    public function show($id)
+    {
+        $request = AttendanceRequest::with(['attendance', 'user'])->findOrFail($id);
+
+        return redirect()->route('attendance.show', ['id' => $request->attendance->id]);
     }
 }

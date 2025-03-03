@@ -10,10 +10,6 @@
 <div class="attendance-detail-container">
     <h1>勤怠詳細</h1>
 
-    @if (session('success'))
-    <p class="success-message">{{ session('success') }}</p>
-    @endif
-
     <form action="{{ route('attendance.request', $attendance->id) }}" method="POST">
         @csrf
         <table class="attendance-detail-table">
@@ -35,6 +31,10 @@
                     <input type="time" name="end_time"
                         value="{{ old('end_time', $pendingRequest && $pendingRequest->new_end_time ? $pendingRequest->new_end_time : optional($attendance->end_time)->format('H:i')) }}"
                         {{ $pendingRequest ? 'disabled' : '' }}>
+
+                    @error('end_time')
+                    <div class="error-message">{{ $message }}</div>
+                    @enderror
                 </td>
             </tr>
 
@@ -54,6 +54,13 @@
                     <input type="time" name="break_times[{{ $index }}][end]"
                         value="{{ old("break_times.$index.end", is_array($break) ? $break['end'] : optional($break->break_end)->format('H:i')) }}"
                         {{ $pendingRequest ? 'disabled' : '' }}>
+
+                    @error("break_times.$index.start")
+                    <div class="error-message">{{ $message }}</div>
+                    @enderror
+                    @error("break_times.$index.end")
+                    <div class="error-message">{{ $message }}</div>
+                    @enderror
                 </td>
             </tr>
             @endforeach
@@ -62,6 +69,10 @@
                 <th>備考</th>
                 <td>
                     <textarea name="reason" {{ $pendingRequest ? 'disabled' : '' }}>{{ old('reason', $pendingRequest && $pendingRequest->reason ? $pendingRequest->reason : $attendance->reason) }}</textarea>
+
+                    @error('reason')
+                    <div class="error-message">{{ $message }}</div>
+                    @enderror
                 </td>
             </tr>
         </table>

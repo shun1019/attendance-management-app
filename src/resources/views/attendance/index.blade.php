@@ -40,7 +40,6 @@
                 <td>
                     {{ gmdate("H:i", $attendance->getTotalBreakTime()) }}
                 </td>
-
                 <td>
                     @if ($attendance->start_time && $attendance->end_time)
                     {{ gmdate("H:i", strtotime($attendance->end_time) - strtotime($attendance->start_time) - $attendance->getTotalBreakTime()) }}
@@ -48,7 +47,6 @@
                     "--:--"
                     @endif
                 </td>
-
                 <td>
                     <form action="{{ route('attendance.show', ['id' => $attendance->id]) }}" method="GET">
                         <button type="submit" class="details-btn">詳細</button>

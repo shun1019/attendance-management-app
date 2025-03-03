@@ -8,6 +8,7 @@ use App\Models\BreakRecord;
 use App\Models\AttendanceRequest;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Http\Requests\AttendanceUpdateRequest;
 
 class AttendanceController extends Controller
 {
@@ -41,7 +42,7 @@ class AttendanceController extends Controller
     public function start(Request $request)
     {
         if (Attendance::where('user_id', Auth::id())->where('work_date', now()->toDateString())->exists()) {
-            return redirect()->route('attendance.index')->with('error', 'すでに出勤しています。');
+            return redirect()->route('attendance.index');
         }
 
         Attendance::create([
@@ -51,7 +52,7 @@ class AttendanceController extends Controller
             'status' => 1,
         ]);
 
-        return redirect()->route('attendance.index')->with('success', '出勤しました！');
+        return redirect()->route('attendance.index');
     }
 
     public function end(Request $request)
@@ -61,7 +62,7 @@ class AttendanceController extends Controller
             ->first();
 
         if (!$attendance || $attendance->status !== 1) {
-            return redirect()->route('attendance.index')->with('error', '出勤していません。');
+            return redirect()->route('attendance.index');
         }
 
         $attendance->update([
@@ -69,7 +70,7 @@ class AttendanceController extends Controller
             'status' => 3,
         ]);
 
-        return redirect()->route('attendance.index')->with('success', '退勤しました！');
+        return redirect()->route('attendance.index');
     }
 
     public function breakStart(Request $request)
@@ -79,7 +80,7 @@ class AttendanceController extends Controller
             ->first();
 
         if (!$attendance || $attendance->status !== 1) {
-            return redirect()->route('attendance.index')->with('error', '出勤していません。');
+            return redirect()->route('attendance.index');
         }
 
         BreakRecord::create([
@@ -89,7 +90,7 @@ class AttendanceController extends Controller
 
         $attendance->update(['status' => 2]);
 
-        return redirect()->route('attendance.index')->with('success', '休憩を開始しました！');
+        return redirect()->route('attendance.index');
     }
 
     public function breakEnd(Request $request)
@@ -99,7 +100,7 @@ class AttendanceController extends Controller
             ->first();
 
         if (!$attendance || $attendance->status !== 2) {
-            return redirect()->route('attendance.index')->with('error', '休憩中ではありません。');
+            return redirect()->route('attendance.index');
         }
 
         $breakRecord = BreakRecord::where('attendance_id', $attendance->id)
@@ -108,14 +109,14 @@ class AttendanceController extends Controller
             ->first();
 
         if (!$breakRecord) {
-            return redirect()->route('attendance.index')->with('error', '休憩開始の記録がありません。');
+            return redirect()->route('attendance.index');
         }
 
         $breakRecord->update(['break_end' => now()]);
 
         $attendance->update(['status' => 1]);
 
-        return redirect()->route('attendance.index')->with('success', '休憩を終了しました！');
+        return redirect()->route('attendance.index');
     }
 
     public function show($id)
@@ -126,7 +127,7 @@ class AttendanceController extends Controller
         return view('attendance.show', compact('attendance', 'pendingRequest'));
     }
 
-    public function requestUpdate(Request $request, $id)
+    public function requestUpdate(AttendanceUpdateRequest $request, $id)
     {
         $attendance = Attendance::findOrFail($id);
 
@@ -140,6 +141,6 @@ class AttendanceController extends Controller
             'status' => 0,
         ]);
 
-        return redirect()->route('attendance.show', $id)->with('success', '修正申請を送信しました！');
+        return redirect()->route('attendance.show', $id);
     }
 }
