@@ -33,7 +33,7 @@
                         {{ $pendingRequest ? 'disabled' : '' }}>
 
                     @error('end_time')
-                    <div class="error-message">{{ $message }}</div>
+                    <div class="error">{{ $message }}</div>
                     @enderror
                 </td>
             </tr>
@@ -56,10 +56,10 @@
                         {{ $pendingRequest ? 'disabled' : '' }}>
 
                     @error("break_times.$index.start")
-                    <div class="error-message">{{ $message }}</div>
+                    <div class="error">{{ $message }}</div>
                     @enderror
                     @error("break_times.$index.end")
-                    <div class="error-message">{{ $message }}</div>
+                    <div class="error">{{ $message }}</div>
                     @enderror
                 </td>
             </tr>
@@ -71,7 +71,7 @@
                     <textarea name="reason" {{ $pendingRequest ? 'disabled' : '' }}>{{ old('reason', $pendingRequest && $pendingRequest->reason ? $pendingRequest->reason : $attendance->reason) }}</textarea>
 
                     @error('reason')
-                    <div class="error-message">{{ $message }}</div>
+                    <div class="error">{{ $message }}</div>
                     @enderror
                 </td>
             </tr>

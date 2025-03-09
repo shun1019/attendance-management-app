@@ -10,10 +10,6 @@
 <div class="attendance-detail-container">
     <h1>勤怠詳細</h1>
 
-    @if (session('success'))
-    <p class="success-message">{{ session('success') }}</p>
-    @endif
-
     <form action="{{ route('admin.attendance.update', ['id' => $attendance->id]) }}" method="POST">
         @csrf
         @method('PUT')
@@ -33,19 +29,31 @@
                     <input type="time" name="start_time" value="{{ old('start_time', optional($attendance->start_time)->format('H:i') ?? '') }}">
                     〜
                     <input type="time" name="end_time" value="{{ old('end_time', optional($attendance->end_time)->format('H:i') ?? '') }}">
+                    @error('end_time')
+                    <div class="error">{{ $message }}</div>
+                    @enderror
                 </td>
             </tr>
 
             @php
             $breakTimes = $attendance->breakRecords;
             @endphp
+
             @foreach ($breakTimes as $index => $break)
             <tr>
                 <th>休憩{{ $index + 1 }}</th>
                 <td>
-                    <input type="time" name="break_times[{{ $index }}][start]" value="{{ old("break_times.$index.start", optional($break->break_start)->format('H:i') ?? '') }}">
+                    <input type="time" name="break_times[{{ $index }}][start]"
+                        value="{{ old("break_times.$index.start", optional($break->break_start)->format('H:i') ?? '') }}">
                     〜
-                    <input type="time" name="break_times[{{ $index }}][end]" value="{{ old("break_times.$index.end", optional($break->break_end)->format('H:i') ?? '') }}">
+                    <input type="time" name="break_times[{{ $index }}][end]"
+                        value="{{ old("break_times.$index.end", optional($break->break_end)->format('H:i') ?? '') }}">
+                    @error("break_times.$index.start")
+                    <div class="error">{{ $message }}</div>
+                    @enderror
+                    @error("break_times.$index.end")
+                    <div class="error">{{ $message }}</div>
+                    @enderror
                 </td>
             </tr>
             @endforeach
@@ -54,6 +62,9 @@
                 <th>備考</th>
                 <td>
                     <textarea name="reason">{{ old('reason', $attendance->reason ?? '') }}</textarea>
+                    @error('reason')
+                    <div class="error">{{ $message }}</div>
+                    @enderror
                 </td>
             </tr>
         </table>

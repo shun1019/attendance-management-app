@@ -42,6 +42,18 @@ attendance-management-app
      platform: linux/amd64
    ```
 
+4. **(MailHog を追加したい場合)**
+   - 以下の設定を `docker-compose.yml` に追加してください:
+   ```yaml
+   services:
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+   ```
+
 ---
 
 ### **Laravel 環境構築**

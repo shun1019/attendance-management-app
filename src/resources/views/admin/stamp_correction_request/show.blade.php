@@ -10,10 +10,6 @@
 <div class="attendance-detail-container">
     <h1>勤怠詳細</h1>
 
-    @if (session('success'))
-    <p class="success-message">{{ session('success') }}</p>
-    @endif
-
     <table class="attendance-detail-table">
         <tr>
             <th>名前</th>

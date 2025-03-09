@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Attendance;
 use App\Models\BreakRecord;
+use App\Http\Requests\AttendanceUpdateRequest;
 
 class AdminAttendanceController extends Controller
 {
@@ -64,7 +65,7 @@ class AdminAttendanceController extends Controller
         return view('admin.attendance.show', compact('user', 'attendance'));
     }
 
-    public function update(Request $request, $id)
+    public function update(AttendanceUpdateRequest $request, $id)
     {
         $attendance = Attendance::findOrFail($id);
 

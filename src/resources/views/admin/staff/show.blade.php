@@ -33,16 +33,19 @@
             @foreach ($attendances as $attendance)
             <tr>
                 <td>{{ \Carbon\Carbon::parse($attendance->work_date)->isoFormat('MM/DD (ddd)') }}</td>
-                <td>{{ optional($attendance->start_time)->format('H:i') ?? '--:--' }}</td>
-                <td>{{ optional($attendance->end_time)->format('H:i') ?? '--:--' }}</td>
+                <td>{{ optional($attendance->start_time)->format('H:i') ?: '' }}</td>
+                <td>{{ optional($attendance->end_time)->format('H:i') ?: '' }}</td>
                 <td>
+                    @if ($attendance->getTotalBreakTime() > 0)
                     {{ gmdate("H:i", $attendance->getTotalBreakTime()) }}
+                    @endif
                 </td>
                 <td>
                     @if ($attendance->start_time && $attendance->end_time)
-                    {{ gmdate("H:i", strtotime($attendance->end_time) - strtotime($attendance->start_time) - $attendance->getTotalBreakTime()) }}
-                    @else
-                    "--:--"
+                    @php
+                    $totalTime = strtotime($attendance->end_time) - strtotime($attendance->start_time) - $attendance->getTotalBreakTime();
+                    @endphp
+                    {{ $totalTime > 0 ? gmdate("H:i", $totalTime) : '' }}
                     @endif
                 </td>
                 <td>
