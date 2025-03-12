@@ -52,5 +52,5 @@ body {
 .error {
     color: rgb(255, 0, 0);
     font-size: 1rem;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }

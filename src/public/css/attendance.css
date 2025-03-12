@@ -5,14 +5,15 @@
     margin: 100px auto;
 }
 
-.attendance-container h2{
-    font-size: 35px;
+.attendance-container h2 {
+    font-size: 30px;
     margin-bottom: 10px;
 }
 
-.attendance-container h1{
-    font-size: 55px;
+.attendance-container h1 {
+    font-size: 45px;
     font-weight: bold;
+    margin-bottom: 50px;
 }
 
 .status-area {
@@ -35,10 +36,10 @@
 
 .attendance-btn,
 .leaving-btn {
-    background: black;
+    background: #000;
     color: #fff;
     font-size: 20px;
-    padding: 10px 40px;
+    padding: 10px 45px;
     border: none;
     border-radius: 15px;
     cursor: pointer;
@@ -59,7 +60,7 @@
     font-size: 20px;
 }
 
-/* ======== 勤怠一覧用のスタイルを追加 ======== */
+/* ======== 勤怠一覧用のスタイル ======== */
 .attendance-list-container {
     max-width: 800px;
     margin: 50px auto;
@@ -73,37 +74,35 @@
     padding-bottom: 30px;
 }
 
-.attendance-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-collapse: collapse;
-    background-color: #fff;
-    border-radius: 8px;
-}
-
 .month-selector {
     margin: 30px 0;
-    border-radius: 8px;
+    border-radius: 4px;
     background-color: #fff;
-    text-align: center;
-    height: 50px;
-    padding-top: 18px;
+    padding: 10px;
+    text-align-last: justify;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .month-selector button {
-    background-color: #ddd;
+    background-color: #fff;
     border: none;
     padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
-    margin: 0 100px 0 100px;
 }
 
-.month-nav button:hover {
-    background-color: #ccc;
+.current-month text{
+    vertical-align: top;
+    font-size: 30px;
+}
+
+.current-month img {
+    height: 30px;
+    width: 30px;
+    padding-right: 10px;
+    vertical-align: sub;
 }
 
 .attendance-table {
@@ -140,6 +139,7 @@
 .attendance-detail-container {
     max-width: 800px;
     margin: 50px auto;
+    padding: 20px;
 }
 
 .attendance-detail-container h1 {
@@ -150,6 +150,7 @@
 }
 
 .attendance-detail-table {
+    margin: 60px 0;
     background: #fff;
     width: 100%;
     border-collapse: collapse;
@@ -181,8 +182,7 @@
     border: 1px solid #ccc;
 }
 
-.attendance-detail-table input[type="time"]
-{
+.attendance-detail-table input[type="time"] {
     width: 80px;
     padding: 6px;
     margin: 0 30px;
@@ -196,12 +196,6 @@
     gap: 5px;
 }
 
-.error {
-    color: rgb(255, 0, 0);
-    font-size: 1rem;
-    margin-bottom: 20px;
-}
-
 .pending-message {
     color: rgb(255, 11, 11);
     padding: 10px;
@@ -210,7 +204,6 @@
 
 .button-area {
     text-align: end;
-    padding-top: 30px;
 }
 
 .primary-btn {
@@ -232,17 +225,23 @@
     max-width: 900px;
     margin: 50px auto;
     padding: 20px;
-    text-align: center;
+}
+
+.request-list-container h1 {
+    padding-left: 20px;
+    height: 20px;
+    border-left: 8px solid #413e40;
+    padding-bottom: 30px;
 }
 
 .request-tabs {
     display: flex;
     border-bottom: 1px solid #000;
-    margin-bottom: 20px;
+    margin: 50px 0;
 }
 
 .tab-link {
-    padding: 10px 20px;
+    padding: 10px 60px;
     font-size: 1rem;
     text-decoration: none;
     color: #000;

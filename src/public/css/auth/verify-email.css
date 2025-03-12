@@ -1,0 +1,26 @@
+.verify-email_container {
+    text-align: center;
+    margin: 70px;
+}
+
+p {
+    font-size: 20px;
+    margin: 0;
+}
+
+.certification-btn {
+    background: #c5c5c5;
+    color: #000;
+    font-size: 18px;
+    padding: 10px 20px;
+    margin: 40px 0;
+    border: 1px solid #413e40;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.verification-send {
+    text-decoration: none;
+    color: #0aa9ff;
+}

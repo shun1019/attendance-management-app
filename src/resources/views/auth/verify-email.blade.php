@@ -2,29 +2,19 @@
 
 @section('title', 'メール認証のお願い')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/auth/verify-email.css') }}">
+@endsection
+
 @section('content')
-<div class="container">
-    <h1>メール認証が必要です</h1>
-    <p>登録されたメールアドレスに認証リンクを送信しました。</p>
-    <p>メールを確認し、リンクをクリックしてアカウントを有効にしてください。</p>
+<div class="verify-email_container">
+    <p>登録していただいたメールアドレスに認証メールを送付しました。</p>
+    <p>メール認証を完了してください。</p>
 
-    @if (session('message'))
-    <div class="alert alert-success">
-        {{ session('message') }}
-    </div>
-    @endif
-
-    <form method="POST" action="{{ route('verification.send') }}">
-        @csrf
-        <button type="submit" class="btn btn-primary">認証メールを再送信</button>
+    <form action="http://localhost:8025" method="get">
+        <button type="submit" class="certification-btn">認証はこちらから</button>
     </form>
-
-    <br>
-    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        ログアウト
-    </a>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
+    @csrf
+    <a href="{{ route('verification.send') }}" class="verification-send">認証メールを再送する</a>
 </div>
 @endsection

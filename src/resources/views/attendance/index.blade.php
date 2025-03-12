@@ -10,16 +10,14 @@
 <div class="attendance-list-container">
     <h1>勤怠一覧</h1>
 
-    {{-- 月選択 --}}
     <div class="month-selector">
         <form action="{{ route('attendance.list') }}" method="GET">
             <button type="submit" name="month" value="{{ \Carbon\Carbon::parse($yearMonth)->subMonth()->format('Y-m') }}">← 前月</button>
-            <span>{{ \Carbon\Carbon::parse($yearMonth)->format('Y年m月') }}</span>
+            <span class="current-month"><img src="{{ asset('storage/image/icon-calender.png') }}" alt="カレンダーアイコン">{{ \Carbon\Carbon::parse($yearMonth)->format('Y/m') }}</span>
             <button type="submit" name="month" value="{{ \Carbon\Carbon::parse($yearMonth)->addMonth()->format('Y-m') }}">翌月 →</button>
         </form>
     </div>
 
-    {{-- 勤怠一覧表 --}}
     <table class="attendance-table">
         <thead>
             <tr>

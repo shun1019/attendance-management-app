@@ -14,7 +14,7 @@
     <div class="date-selector">
         <form action="{{ route('admin.attendance.index') }}" method="GET">
             <button type="submit" name="date" value="{{ \Carbon\Carbon::parse($selectedDate)->subDay()->format('Y-m-d') }}">← 前日</button>
-            <span>{{ \Carbon\Carbon::parse($selectedDate)->format('Y/m/d') }}</span>
+            <span class="current-date"><img src="{{ asset('storage/image/icon-calender.png') }}" alt="カレンダーアイコン" width="20" height="20">{{ \Carbon\Carbon::parse($selectedDate)->format('Y/m/d') }}</span>
             <button type="submit" name="date" value="{{ \Carbon\Carbon::parse($selectedDate)->addDay()->format('Y-m-d') }}">翌日 →</button>
         </form>
     </div>

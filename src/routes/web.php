@@ -53,6 +53,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/{id}/attendance/{attendance_id}', [AdminAttendanceController::class, 'attendanceDetail'])
                 ->where(['id' => '[0-9]+', 'attendance_id' => '[0-9]+'])
                 ->name('attendance');
+
+            Route::get('/{id}/export', [AdminStaffController::class, 'exportCsv'])
+                ->where('id', '[0-9]+')
+                ->name('export');
         });
 
         Route::prefix('stamp_correction_request')->name('stamp_correction_request.')->group(function () {
