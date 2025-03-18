@@ -65,6 +65,7 @@
 
 .details-btn {
     background-color: #fff;
+    color: #000;
     padding: 6px 10px;
     border: none;
     cursor: pointer;
@@ -119,8 +120,7 @@
     border: 1px solid #ccc;
 }
 
-.attendance-detail-table input[type="time"]
-{
+.attendance-detail-table input[type="time"] {
     width: 80px;
     padding: 6px;
     margin: 0 30px;
@@ -184,7 +184,8 @@
     border-radius: 8px;
 }
 
-.staff-table th, .staff-table td {
+.staff-table th,
+.staff-table td {
     height: 30px;
     padding: 12px;
     text-align: center;
@@ -203,16 +204,6 @@
     padding: 12px;
     text-align: center;
     border-bottom: 2px solid #ddd;
-}
-
-.details-btn {
-    background-color: #fff;
-    color: #000;
-    padding: 6px 10px;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    text-decoration: none;
 }
 
 /* ======== 月別勤怠一覧ページのスタイル ======== */
@@ -235,7 +226,7 @@
     font-size: 1rem;
 }
 
-.current-month text{
+.current-month text {
     vertical-align: top;
     font-size: 30px;
 }
@@ -317,4 +308,107 @@
     background-color: #fff;
     border-bottom: 4px solid #ddd;
     color: #4d4d4d;
+}
+
+/* PC (1400-1540px) 用の調整 */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .attendance-list-container,
+    .attendance-detail-container,
+    .staff-list-container,
+    .request-list-container {
+        max-width: 85%;
+        margin: 30px auto;
+        padding: 10px;
+    }
+
+    .attendance-table,
+    .attendance-detail-table,
+    .staff-table,
+    .request-table table {
+        font-size: 20px;
+    }
+
+    .date-selector,
+    .month-selector {
+        font-size: 18px;
+    }
+
+    .primary-btn,
+    .approved-btn,
+    .details-btn,
+    .export-btn {
+        font-size: 20px;
+        padding: 8px 12px;
+    }
+}
+
+/* タブレット (768-850px) 用の調整 */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .attendance-list-container,
+    .attendance-detail-container,
+    .staff-list-container,
+    .request-list-container {
+        max-width: 85%;
+        margin: 30px auto;
+        padding: 10px;
+    }
+
+    .attendance-list-container h1,
+    .attendance-detail-container h1,
+    .staff-list-container h1,
+    .request-list-container h1 {
+        font-size: 25px;
+        height: 0;
+        padding-left: 10px;
+        padding-bottom: 40px;
+    }
+
+    .date-selector,
+    .month-selector {
+        font-size: 16px;
+        margin: 30px 0;
+    }
+
+    .attendance-table,
+    .attendance-detail-table,
+    .staff-table,
+    .request-table table {
+        font-size: 0.9rem;
+    }
+
+    .attendance-table th,
+    .attendance-table td,
+    .attendance-detail-table th,
+    .attendance-detail-table td,
+    .staff-table th,
+    .staff-table td,
+    .request-table th,
+    .request-table td {
+        padding: 10px;
+    }
+
+    .attendance-detail-table th {
+        padding-left: 20px;
+    }
+
+    .attendance-detail-table input[type="time"] {
+        font-size: 15px;
+        width: 70px;
+        margin: 0 10px;
+    }
+
+    .tab-link {
+        padding: 20px;
+    }
+
+    .primary-btn,
+    .approved-btn,
+    .export-btn {
+        font-size: 16px;
+        padding: 8px 10px;
+    }
+
+    .csv-export-btn-container {
+        text-align: center;
+    }
 }

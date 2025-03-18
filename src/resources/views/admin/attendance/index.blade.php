@@ -1,4 +1,4 @@
-@extends('layouts.admin.app')
+@extends('layouts.app')
 
 @section('title', '勤怠一覧（管理者）')
 
@@ -10,7 +10,6 @@
 <div class="attendance-list-container">
     <h1>{{ \Carbon\Carbon::parse($selectedDate)->format('Y年m月d日') }} の勤怠</h1>
 
-    {{-- 日付選択 --}}
     <div class="date-selector">
         <form action="{{ route('admin.attendance.index') }}" method="GET">
             <button type="submit" name="date" value="{{ \Carbon\Carbon::parse($selectedDate)->subDay()->format('Y-m-d') }}">← 前日</button>
@@ -19,7 +18,6 @@
         </form>
     </div>
 
-    {{-- 勤怠一覧表 --}}
     <table class="attendance-table">
         <thead>
             <tr>
@@ -51,7 +49,7 @@
                     @endif
                 </td>
                 <td>
-                    <form action="{{ route('admin.attendance.show', ['id' => $attendance->id]) }}" method="GET">
+                    <form action="{{ route('attendance.show', ['id' => $attendance->id]) }}" method="GET">
                         <button type="submit" class="details-btn">詳細</button>
                     </form>
                 </td>

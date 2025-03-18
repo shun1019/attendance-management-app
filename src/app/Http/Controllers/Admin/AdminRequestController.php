@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AttendanceRequest;
-use App\Models\Attendance;
+use App\Models\BreakRecord;
 use Illuminate\Support\Facades\DB;
 
 class AdminRequestController extends Controller
@@ -31,12 +31,22 @@ class AdminRequestController extends Controller
     }
 
     /**
-     * 修正申請の詳細表示
+     * 申請の詳細を表示
      */
     public function show($id)
     {
-        $request = AttendanceRequest::with(['user', 'attendance'])->findOrFail($id);
-        return view('admin.stamp_correction_request.show', compact('request'));
+        $request = AttendanceRequest::with(['attendance', 'user'])->findOrFail($id);
+
+        return redirect()->route('stamp_correction_request.approve.form', ['attendance_correct_request' => $id]);
+    }
+
+    /**
+     * 申請承認フォームを表示
+     */
+    public function showApproveForm($id)
+    {
+        $request = AttendanceRequest::with(['attendance', 'user'])->findOrFail($id);
+        return view('admin.stamp_correction_request.approve', compact('request'));
     }
 
     /**
@@ -44,28 +54,39 @@ class AdminRequestController extends Controller
      */
     public function approve($id)
     {
-        $request = AttendanceRequest::findOrFail($id);
-        $attendance = $request->attendance;
+        DB::beginTransaction();
 
-        $attendance->start_time = $request->new_start_time ?? $attendance->start_time;
-        $attendance->end_time = $request->new_end_time ?? $attendance->end_time;
-        $attendance->save();
+        try {
+            $request = AttendanceRequest::findOrFail($id);
+            $attendance = $request->attendance;
 
-        if (!empty($request->new_break_times)) {
-            $breakTimes = json_decode($request->new_break_times, true);
+            $attendance->start_time = $request->new_start_time ?? $attendance->start_time;
+            $attendance->end_time = $request->new_end_time ?? $attendance->end_time;
+            $attendance->save();
 
-            $attendance->breakRecords()->delete();
-            foreach ($breakTimes as $break) {
-                $attendance->breakRecords()->create([
-                    'break_start' => $break['start'],
-                    'break_end' => $break['end']
-                ]);
+            if (!empty($request->new_break_times)) {
+                $breakTimes = json_decode($request->new_break_times, true);
+
+                $attendance->breakRecords()->delete();
+                foreach ($breakTimes as $break) {
+                    $attendance->breakRecords()->create([
+                        'break_start' => $break['start'],
+                        'break_end' => $break['end']
+                    ]);
+                }
             }
+
+            $request->status = 1;
+            $request->save();
+
+            DB::commit();
+
+            return redirect()->route('stamp_correction_request.list', ['tab' => 'approved'])
+                ->with('success', '申請を承認しました。');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()
+                ->with('error', '承認処理中にエラーが発生しました: ' . $e->getMessage());
         }
-
-        $request->status = 1;
-        $request->save();
-
-        return redirect()->route('admin.stamp_correction_request.list')->with('success', '申請を承認しました。');
     }
 }

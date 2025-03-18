@@ -119,10 +119,31 @@ class AttendanceController extends Controller
         return redirect()->route('attendance.index');
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
         $attendance = Attendance::with('user', 'breakRecords')->findOrFail($id);
-        $pendingRequest = AttendanceRequest::where('attendance_id', $id)->where('status', 0)->first();
+        $user = Auth::user();
+
+        if ($user->role == 1) {
+            $requestId = $request->query('request_id');
+            if ($requestId) {
+                $attendanceRequest = AttendanceRequest::findOrFail($requestId);
+                return view('admin.stamp_correction_request.approve', [
+                    'request' => $attendanceRequest
+                ]);
+            }
+
+            return view('admin.attendance.show', compact('attendance'));
+        }
+
+        if ($attendance->user_id != $user->id) {
+            abort(403, '閲覧権限がありません');
+        }
+
+        $pendingRequest = AttendanceRequest::where('attendance_id', $id)
+            ->where('user_id', $user->id)
+            ->where('status', 0)
+            ->first();
 
         return view('attendance.show', compact('attendance', 'pendingRequest'));
     }

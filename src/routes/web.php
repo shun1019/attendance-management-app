@@ -23,13 +23,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/break/start', [AttendanceController::class, 'breakStart'])->name('break.start');
         Route::post('/break/end', [AttendanceController::class, 'breakEnd'])->name('break.end');
         Route::get('/list', [AttendanceController::class, 'list'])->name('list');
-        Route::get('/{id}', [AttendanceController::class, 'show'])->where('id', '[0-9]+')->name('show');
         Route::post('/{id}/request', [AttendanceController::class, 'requestUpdate'])->where('id', '[0-9]+')->name('request');
-    });
-
-    Route::prefix('stamp_correction_request')->name('stamp_correction_request.')->group(function () {
-        Route::get('/list', [AttendanceRequestController::class, 'index'])->name('list');
-        Route::get('/{id}', [AttendanceRequestController::class, 'show'])->where('id', '[0-9]+')->name('show');
     });
 });
 
@@ -42,8 +36,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::prefix('attendance')->name('attendance.')->group(function () {
             Route::get('/list', [AdminAttendanceController::class, 'index'])->name('index');
-            Route::get('/{id}', [AdminAttendanceController::class, 'show'])->where('id', '[0-9]+')->name('show');
-            Route::put('/{id}', [AdminAttendanceController::class, 'update'])->where('id', '[0-9]+')->name('update');
             Route::get('/staff/{id}', [AdminAttendanceController::class, 'listByStaff'])->where('id', '[0-9]+')->name('staff');
         });
 
@@ -58,11 +50,43 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 ->where('id', '[0-9]+')
                 ->name('export');
         });
+    });
+});
 
-        Route::prefix('stamp_correction_request')->name('stamp_correction_request.')->group(function () {
-            Route::get('/list', [AdminRequestController::class, 'index'])->name('list');
-            Route::get('/{id}', [AdminRequestController::class, 'show'])->where('id', '[0-9]+')->name('show');
-            Route::post('/approve/{id}', [AdminRequestController::class, 'approve'])->where('id', '[0-9]+')->name('approve');
-        });
+// 共通パスのルート - 管理者・一般ユーザー共通
+Route::middleware(['auth'])->group(function () {
+    // 勤怠詳細画面
+    Route::get('/attendance/{id}', [AttendanceController::class, 'show'])
+        ->where('id', '[0-9]+')
+        ->name('attendance.show');
+
+    // 勤怠更新（管理者のみ）
+    Route::put('/attendance/{id}', [AdminAttendanceController::class, 'update'])
+        ->where('id', '[0-9]+')
+        ->name('attendance.update')
+        ->middleware('admin');
+
+    // 申請関連
+    Route::prefix('stamp_correction_request')->name('stamp_correction_request.')->group(function () {
+        // 申請一覧
+        Route::get('/list', [AttendanceRequestController::class, 'index'])
+            ->name('list');
+
+        // 申請詳細
+        Route::get('/{id}', [AttendanceRequestController::class, 'show'])
+            ->where('id', '[0-9]+')
+            ->name('show');
+
+        // 申請承認画面表示
+        Route::get('/approve/{attendance_correct_request}', [AdminRequestController::class, 'showApproveForm'])
+            ->where('attendance_correct_request', '[0-9]+')
+            ->name('approve.form')
+            ->middleware('admin');
+
+        // 申請承認処理
+        Route::post('/approve/{attendance_correct_request}', [AdminRequestController::class, 'approve'])
+            ->where('attendance_correct_request', '[0-9]+')
+            ->name('approve')
+            ->middleware('admin');
     });
 });

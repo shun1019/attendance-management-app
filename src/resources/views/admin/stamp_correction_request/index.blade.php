@@ -1,4 +1,4 @@
-@extends('layouts.admin.app')
+@extends('layouts.app')
 
 @section('title', '修正申請一覧')
 
@@ -11,12 +11,12 @@
     <h1>修正申請一覧</h1>
 
     <div class="request-tabs">
-        <a href="{{ route('admin.stamp_correction_request.list', ['tab' => 'pending']) }}"
+        <a href="{{ route('stamp_correction_request.list', ['tab' => 'pending']) }}"
             class="tab-link {{ request('tab', 'pending') === 'pending' ? 'active' : '' }}">
             承認待ち
         </a>
 
-        <a href="{{ route('admin.stamp_correction_request.list', ['tab' => 'approved']) }}"
+        <a href="{{ route('stamp_correction_request.list', ['tab' => 'approved']) }}"
             class="tab-link {{ request('tab', 'pending') === 'approved' ? 'active' : '' }}">
             承認済み
         </a>
@@ -44,7 +44,7 @@
                     <td>{{ $request->reason }}</td>
                     <td>{{ \Carbon\Carbon::parse($request->created_at)->format('Y/m/d') }}</td>
                     <td>
-                        <form action="{{ route('admin.stamp_correction_request.show', ['id' => $request->id]) }}" method="GET">
+                        <form action="{{ route('stamp_correction_request.show', ['id' => $request->id]) }}" method="GET">
                             <button type="submit" class="details-btn">詳細</button>
                         </form>
                     </td>
@@ -81,7 +81,7 @@
                     <td>{{ $request->reason }}</td>
                     <td>{{ \Carbon\Carbon::parse($request->updated_at)->format('Y/m/d') }}</td>
                     <td>
-                        <form action="{{ route('admin.stamp_correction_request.show', ['id' => $request->id]) }}" method="GET">
+                        <form action="{{ route('stamp_correction_request.show', ['id' => $request->id]) }}" method="GET">
                             <button type="submit" class="details-btn">詳細</button>
                         </form>
                     </td>

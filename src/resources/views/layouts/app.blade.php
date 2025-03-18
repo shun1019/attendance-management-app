@@ -13,6 +13,28 @@
 
 <body>
     <header class="header">
+        @if(Auth::user()->role === 1)
+        <!-- 管理者用ヘッダー -->
+        <a class="header__logo" href="{{ route('admin.attendance.index') }}">
+            <img src="{{ asset('storage/image/logo.svg') }}" alt="COACHTECH">
+        </a>
+        <nav class="header__nav">
+            <form action="{{ route('admin.attendance.index', ['date' => now()->format('Y-m-d')]) }}" method="GET">
+                <button type="submit" class="nav-btn">勤怠一覧</button>
+            </form>
+            <form action="{{ route('admin.staff.index') }}" method="GET">
+                <button type="submit" class="nav-btn">スタッフ一覧</button>
+            </form>
+            <form action="{{ route('stamp_correction_request.list') }}" method="GET">
+                <button type="submit" class="nav-btn">申請一覧</button>
+            </form>
+            <form action="{{ route('admin.logout') }}" method="POST" class="logout-form">
+                @csrf
+                <button type="submit" class="logout-btn">ログアウト</button>
+            </form>
+        </nav>
+        @else
+        <!-- 一般ユーザー用ヘッダー -->
         <a class="header__logo" href="/">
             <img src="{{ asset('storage/image/logo.svg') }}" alt="COACHTECH">
         </a>
@@ -31,10 +53,10 @@
                 <button type="submit" class="logout-btn">ログアウト</button>
             </form>
         </nav>
+        @endif
     </header>
 
     @yield('content')
-    @yield('js')
 
 </body>
 

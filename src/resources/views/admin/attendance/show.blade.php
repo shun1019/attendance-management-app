@@ -1,4 +1,4 @@
-@extends('layouts.admin.app')
+@extends('layouts.app')
 
 @section('title', '勤怠詳細（管理者）')
 
@@ -10,7 +10,7 @@
 <div class="attendance-detail-container">
     <h1>勤怠詳細</h1>
 
-    <form action="{{ route('admin.attendance.update', ['id' => $attendance->id]) }}" method="POST">
+    <form action="{{ route('attendance.update', ['id' => $attendance->id]) }}" method="POST">
         @csrf
         @method('PUT')
 

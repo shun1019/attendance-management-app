@@ -12,7 +12,7 @@ class RequestApproval extends Model
     protected $fillable = [
         'attendance_request_id',
         'approved_by',
-        'status', // 0: 承認待ち, 1: 承認, 2: 却下
+        'status', // 0: 承認待ち, 1: 承認
     ];
 
     protected $casts = [
@@ -34,7 +34,6 @@ class RequestApproval extends Model
         return [
             0 => '承認待ち',
             1 => '承認済み',
-            2 => '却下',
         ];
     }
 }
