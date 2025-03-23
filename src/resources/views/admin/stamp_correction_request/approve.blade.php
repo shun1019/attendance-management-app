@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="attendance-detail-container">
-    <h1>勤怠詳細（申請承認）</h1>
+    <h1>勤怠詳細</h1>
 
     <table class="attendance-detail-table">
         <tr>

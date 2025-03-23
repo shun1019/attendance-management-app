@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Admin\AdminRequestController; // 正しい名前空間
+use App\Http\Controllers\Admin\AdminRequestController;
 use App\Models\AttendanceRequest;
 use Illuminate\Support\Facades\Auth;
 

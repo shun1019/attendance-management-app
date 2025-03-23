@@ -39,12 +39,6 @@ Fortify::authenticateUsing(function (Request $request) {
         ]);
     }
 
-    if (!request()->is('admin/*') && $user->role !== 0) {
-        throw ValidationException::withMessages([
-            'email' => ['一般ユーザーとしてログインできません。'],
-        ]);
-    }
-
     return $user;
 });
 

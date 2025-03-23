@@ -49,7 +49,7 @@
                     @endif
                 </td>
                 <td>
-                    <a href="{{ route('admin.staff.attendance', ['id' => $user->id, 'attendance_id' => $attendance->id]) }}" class="details-btn">詳細</a>
+                    <a href="{{ route('attendance.show', ['id' => $attendance->id]) }}" class="details-btn">詳細</a>
                 </td>
             </tr>
             @endforeach

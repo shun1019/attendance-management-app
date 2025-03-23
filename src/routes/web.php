@@ -32,7 +32,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AdminAuthController::class, 'login'])->name('login');
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
-
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::prefix('attendance')->name('attendance.')->group(function () {
             Route::get('/list', [AdminAttendanceController::class, 'index'])->name('index');
@@ -42,10 +41,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::prefix('staff')->name('staff.')->group(function () {
             Route::get('/list', [AdminStaffController::class, 'index'])->name('index');
             Route::get('/{id}', [AdminStaffController::class, 'show'])->where('id', '[0-9]+')->name('show');
-            Route::get('/{id}/attendance/{attendance_id}', [AdminAttendanceController::class, 'attendanceDetail'])
-                ->where(['id' => '[0-9]+', 'attendance_id' => '[0-9]+'])
-                ->name('attendance');
-
             Route::get('/{id}/export', [AdminStaffController::class, 'exportCsv'])
                 ->where('id', '[0-9]+')
                 ->name('export');
@@ -55,35 +50,26 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 // 共通パスのルート - 管理者・一般ユーザー共通
 Route::middleware(['auth'])->group(function () {
-    // 勤怠詳細画面
     Route::get('/attendance/{id}', [AttendanceController::class, 'show'])
         ->where('id', '[0-9]+')
         ->name('attendance.show');
 
-    // 勤怠更新（管理者のみ）
     Route::put('/attendance/{id}', [AdminAttendanceController::class, 'update'])
         ->where('id', '[0-9]+')
         ->name('attendance.update')
         ->middleware('admin');
 
-    // 申請関連
     Route::prefix('stamp_correction_request')->name('stamp_correction_request.')->group(function () {
-        // 申請一覧
         Route::get('/list', [AttendanceRequestController::class, 'index'])
             ->name('list');
-
-        // 申請詳細
         Route::get('/{id}', [AttendanceRequestController::class, 'show'])
             ->where('id', '[0-9]+')
             ->name('show');
-
-        // 申請承認画面表示
         Route::get('/approve/{attendance_correct_request}', [AdminRequestController::class, 'showApproveForm'])
             ->where('attendance_correct_request', '[0-9]+')
             ->name('approve.form')
             ->middleware('admin');
 
-        // 申請承認処理
         Route::post('/approve/{attendance_correct_request}', [AdminRequestController::class, 'approve'])
             ->where('attendance_correct_request', '[0-9]+')
             ->name('approve')

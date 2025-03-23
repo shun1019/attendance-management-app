@@ -41,7 +41,7 @@
 
             @foreach ($breakTimes as $index => $break)
             <tr>
-                <th>休憩{{ $index + 1 }}</th>
+                <th>{{ $index === 0 ? '休憩' : '休憩' . $index }}</th>
                 <td>
                     <input type="time" name="break_times[{{ $index }}][start]"
                         value="{{ old("break_times.$index.start", optional($break->break_start)->format('H:i') ?? '') }}">

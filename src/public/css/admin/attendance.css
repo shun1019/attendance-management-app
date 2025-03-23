@@ -46,7 +46,10 @@
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
+    font-weight: bold;
+    color: #898989;
     border-radius: 8px;
+    font-size: 18px;
     overflow: hidden;
 }
 
@@ -66,10 +69,11 @@
 .details-btn {
     background-color: #fff;
     color: #000;
+    font-weight: bold;
     padding: 6px 10px;
     border: none;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 1rem;
     text-decoration: none;
 }
 
@@ -104,7 +108,7 @@
 }
 
 .attendance-detail-table th {
-    color: #4d4d4d;
+    color: #898989;
     font-weight: bold;
     text-align: left;
     padding-left: 40px;
@@ -139,6 +143,7 @@
 }
 
 .primary-btn {
+    width: 15%;
     background: #000;
     color: #fff;
     padding: 10px 15px;
@@ -148,11 +153,8 @@
     cursor: pointer;
 }
 
-.primary-btn:hover {
-    background: #333;
-}
-
 .approved-btn {
+    width: 16%;
     background: #575757;
     color: #fff;
     padding: 10px 15px;
@@ -182,6 +184,8 @@
     border-collapse: collapse;
     background-color: #fff;
     border-radius: 8px;
+    font-weight: bold;
+    color: #898989;
 }
 
 .staff-table th,
@@ -294,6 +298,8 @@
     border-collapse: collapse;
     background-color: #fff;
     border-radius: 8px;
+    font-weight: bold;
+    color: #898989;
 }
 
 .request-table th,
@@ -307,7 +313,8 @@
 .request-table th {
     background-color: #fff;
     border-bottom: 4px solid #ddd;
-    color: #4d4d4d;
+    color: #898989;
+    font-weight: bold;
 }
 
 /* PC (1400-1540px) 用の調整 */
@@ -388,7 +395,7 @@
     }
 
     .attendance-detail-table th {
-        padding-left: 20px;
+        padding-left: 35px;
     }
 
     .attendance-detail-table input[type="time"] {

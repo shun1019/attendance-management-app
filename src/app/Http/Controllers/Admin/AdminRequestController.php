@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AttendanceRequest;
-use App\Models\BreakRecord;
 use Illuminate\Support\Facades\DB;
 
 class AdminRequestController extends Controller

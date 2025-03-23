@@ -68,7 +68,7 @@
                     <th>名前</th>
                     <th>対象日時</th>
                     <th>申請理由</th>
-                    <th>承認日時</th>
+                    <th>申請日時</th>
                     <th>詳細</th>
                 </tr>
             </thead>
@@ -79,7 +79,7 @@
                     <td>{{ $request->user->name }}</td>
                     <td>{{ \Carbon\Carbon::parse($request->attendance->work_date)->format('Y/m/d') }}</td>
                     <td>{{ $request->reason }}</td>
-                    <td>{{ \Carbon\Carbon::parse($request->updated_at)->format('Y/m/d') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($request->created_at)->format('Y/m/d') }}</td>
                     <td>
                         <form action="{{ route('stamp_correction_request.show', ['id' => $request->id]) }}" method="GET">
                             <button type="submit" class="details-btn">詳細</button>
