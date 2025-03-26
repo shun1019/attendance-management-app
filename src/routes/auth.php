@@ -29,13 +29,13 @@ Fortify::authenticateUsing(function (Request $request) {
 
     if (!$user || !Hash::check($request->password, $user->password)) {
         throw ValidationException::withMessages([
-            'email' => ['ログイン情報が登録されていません。'],
+            'email' => ['ログイン情報が登録されていません'],
         ]);
     }
 
     if (request()->is('admin/*') && $user->role !== 1) {
         throw ValidationException::withMessages([
-            'email' => ['管理者権限がありません。'],
+            'email' => ['管理者権限がありません'],
         ]);
     }
 

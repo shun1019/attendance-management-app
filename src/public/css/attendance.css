@@ -292,7 +292,7 @@
     .attendance-list-container,
     .attendance-detail-container,
     .request-list-container {
-        max-width: 90%;
+        width: 60%;
         margin: 50px auto;
         padding: 15px;
     }
@@ -319,7 +319,7 @@
     .attendance-detail-container,
     .request-list-container {
         max-width: 85%;
-        margin: 30px auto;
+        margin: 50px auto;
         padding: 10px;
     }
 
@@ -351,6 +351,12 @@
 
     .month-selector {
         font-size: 18px;
+    }
+
+    .current-date img {
+        height: 20px;
+        width: 20px;
+        padding-right: 5px;
     }
 
     .tab-link {

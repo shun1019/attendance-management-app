@@ -323,8 +323,8 @@
     .attendance-detail-container,
     .staff-list-container,
     .request-list-container {
-        max-width: 85%;
-        margin: 30px auto;
+        width: 60%;
+        margin: 5% auto;
         padding: 10px;
     }
 
@@ -374,6 +374,12 @@
     .month-selector {
         font-size: 16px;
         margin: 30px 0;
+    }
+
+    .current-date img {
+        height: 20px;
+        width: 20px;
+        padding-right: 5px;
     }
 
     .attendance-table,
