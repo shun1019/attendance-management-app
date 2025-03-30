@@ -3,7 +3,7 @@
 @section('title', '修正申請一覧')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/admin/attendance.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/stamp_correction_request/index.css') }}">
 @endsection
 
 @section('content')

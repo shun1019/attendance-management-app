@@ -37,7 +37,6 @@ body {
     border: none;
     cursor: pointer;
     font-size: 16px;
-    border-radius: 4px;
 }
 
 .error {
@@ -52,6 +51,10 @@ body {
         padding: 15px 20px;
     }
 
+    .header__nav button {
+        width: 130px;
+        font-size: 20px;
+    }
 }
 
 /* タブレット用レスポンシブ調整 (768-850px) */
@@ -65,13 +68,14 @@ body {
         height: 20px;
     }
 
-    .header__nav {justify-content: end;
+    .header__nav {
+        justify-content: end;
         width: 100%;
     }
 
     .header__nav button {
-        width: 85px;
+        width: 78px;
         padding: 8px 0;
-        font-size: 14px;
+        font-size: 13px;
     }
 }

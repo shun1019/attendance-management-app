@@ -3,7 +3,7 @@
 @section('title', $user->name . 'さんの勤怠')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/admin/attendance.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/staff/show.css') }}">
 @endsection
 
 @section('content')
