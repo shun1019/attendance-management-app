@@ -31,7 +31,7 @@ attendance-management-app
    docker-compose up -d --build
    ```
 
-3. **(Mac の M1/M2 チップでエラーが発生する場合)**
+3. (Mac の M1/M2 チップでエラーが発生する場合)
    - 以下の設定を `docker-compose.yml` に追加してください:
    ```yaml
    mysql:
@@ -42,7 +42,7 @@ attendance-management-app
      platform: linux/amd64
    ```
 
-4. **(MailHog を追加したい場合)**
+4. (MailHog を追加したい場合)
    - 以下の設定を `docker-compose.yml` に追加してください:
    ```yaml
    services:

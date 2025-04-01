@@ -15,13 +15,11 @@ class LoginTest extends TestCase
      */
     public function test_email_is_required_for_login()
     {
-        // ユーザー登録
         User::factory()->create([
             'email' => 'test@example.com',
             'password' => bcrypt('password'),
         ]);
 
-        // ログイン試行（メールアドレス未入力）
         $response = $this->post('/login', [
             'email' => '',
             'password' => 'password',
