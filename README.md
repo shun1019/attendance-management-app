@@ -32,7 +32,9 @@ attendance-management-app
    ```
 
 3. (Mac の M1/M2 チップでエラーが発生する場合)
+
    - 以下の設定を `docker-compose.yml` に追加してください:
+
    ```yaml
    mysql:
      platform: linux/amd64
@@ -46,7 +48,7 @@ attendance-management-app
    - 以下の設定を `docker-compose.yml` に追加してください:
    ```yaml
    services:
-  mailhog:
+      mailhog:
     image: mailhog/mailhog
     container_name: mailhog
     ports:
@@ -122,6 +124,7 @@ attendance-management-app
    ```
 
 8. キャッシュクリア:
+
    ```bash
    php artisan config:clear
    php artisan cache:clear
@@ -129,25 +132,29 @@ attendance-management-app
    php artisan view:clear
    ```
 
-9.	ストレージへのシンボリックリンクを作成
-   ```bash
-   php artisan storage:link
-   ```
+9. ストレージへのシンボリックリンクを作成
+
+```bash
+php artisan storage:link
+```
 
 10. テストの実行
-   ```bash
-   php artisan test
-   ```
+
+```bash
+php artisan test
+```
 
 ---
 
 ## **ログイン情報**
 
 ### **管理者ユーザー**
+
 - メールアドレス: `admin@example.com`
 - パスワード: `password`
 
 ### **一般ユーザー**
+
 - メールアドレス: `user@example.com`
 - パスワード: `password`
 
@@ -165,14 +172,15 @@ attendance-management-app
 
 Docker コンテナを起動すると、MailHog も自動的に起動します。
 特別な設定なしで、以下の URL からメールの確認ができます。
+
 - MailHog 管理画面: http://localhost:8025
 
 #### **メール確認手順**
 
-1.	ユーザー登録を行う
-2.	MailHog にアクセス: http://localhost:8025
-3.	受信ボックスにメールが届いていることを確認
-4.	認証メール内のリンクをクリックしてアカウントを有効化
+1. ユーザー登録を行う
+2. MailHog にアクセス: http://localhost:8025
+3. 受信ボックスにメールが届いていることを確認
+4. 認証メール内のリンクをクリックしてアカウントを有効化
 
 ---
 
