@@ -18,12 +18,13 @@ use App\Models\User;
 use Laravel\Fortify\Contracts\VerifyEmailViewResponse;
 use Laravel\Fortify\Http\Responses\SimpleViewResponse;
 use Illuminate\Validation\ValidationException;
+use App\Http\Requests\LoginRequest;
 
 class FortifyServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        //
+        $this->app->bind(\Laravel\Fortify\Http\Requests\LoginRequest::class, LoginRequest::class);
     }
 
     public function boot(): void
@@ -45,7 +46,7 @@ class FortifyServiceProvider extends ServiceProvider
                 ]);
             }
 
-            if (request()->is('admin/*') && $user->role !== 1) {
+            if ($request->is('admin/*') && $user->role !== 1) {
                 throw ValidationException::withMessages([
                     'email' => ['管理者権限がありません。'],
                 ]);
