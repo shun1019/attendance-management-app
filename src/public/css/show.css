@@ -103,6 +103,12 @@
     border-radius: 5px;
 }
 
+.pending-message {
+    color: rgb(255, 11, 11);
+    padding: 10px;
+    text-align: end;
+}
+
 /* PC (1400-1540px) 用の調整 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
     .attendance-detail-container {

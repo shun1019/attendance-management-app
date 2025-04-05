@@ -48,12 +48,12 @@ attendance-management-app
    - 以下の設定を `docker-compose.yml` に追加してください:
    ```yaml
    services:
-      mailhog:
-    image: mailhog/mailhog
-    container_name: mailhog
-    ports:
-      - "1025:1025"
-      - "8025:8025"
+     mailhog:
+       image: mailhog/mailhog
+       container_name: mailhog
+       ports:
+         - "1025:1025"
+         - "8025:8025"
    ```
 
 ---
@@ -81,12 +81,6 @@ attendance-management-app
 4. 環境変数を設定・追加:
 
    ```env
-   APP_NAME=Laravel
-   APP_ENV=local
-   APP_KEY=base64:FA0/obGVuwXyhgnCfBqJNjVMvnqPb6wwlqAF9Z5w3HU=
-   APP_DEBUG=true
-   APP_URL=${NGROK_URL:-http://localhost}
-
    DB_CONNECTION=mysql
    DB_HOST=mysql
    DB_PORT=3306
