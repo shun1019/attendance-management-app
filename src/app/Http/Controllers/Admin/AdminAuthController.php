@@ -8,11 +8,17 @@ use App\Http\Requests\LoginRequest;
 
 class AdminAuthController extends Controller
 {
+    /**
+     * 管理者ログインフォームを表示
+     */
     public function showLoginForm()
     {
         return view('admin.auth.login');
     }
 
+    /**
+     * 管理者ログイン処理
+     */
     public function login(LoginRequest $request)
     {
         $credentials = $request->validated();
@@ -27,6 +33,9 @@ class AdminAuthController extends Controller
         ]);
     }
 
+    /**
+     * 管理者ログアウト処理
+     */
     public function logout()
     {
         Auth::logout();

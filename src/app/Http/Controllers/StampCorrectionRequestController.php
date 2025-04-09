@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 class StampCorrectionRequestController extends Controller
 {
+    /**
+     * 勤怠修正申請の一覧を表示
+     */
     public function index(Request $request)
     {
         $userId = Auth::id();

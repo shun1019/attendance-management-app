@@ -12,6 +12,9 @@ use App\Http\Requests\AttendanceUpdateRequest;
 
 class AttendanceController extends Controller
 {
+    /**
+     * 本日の勤怠情報を表示
+     */
     public function index()
     {
         $attendance = Attendance::where('user_id', Auth::id())
@@ -22,6 +25,9 @@ class AttendanceController extends Controller
         return view('attendance.attendance', compact('attendance'));
     }
 
+    /**
+     * 勤怠履歴を月単位で表示
+     */
     public function list(Request $request)
     {
         $user = Auth::user();
@@ -39,6 +45,9 @@ class AttendanceController extends Controller
         return view('attendance.index', compact('attendances', 'yearMonth'));
     }
 
+    /**
+     * 出勤打刻
+     */
     public function start(Request $request)
     {
         if (Attendance::where('user_id', Auth::id())->where('work_date', now()->toDateString())->exists()) {
@@ -55,6 +64,9 @@ class AttendanceController extends Controller
         return redirect()->route('attendance.index');
     }
 
+    /**
+     * 退勤打刻
+     */
     public function end(Request $request)
     {
         $attendance = Attendance::where('user_id', Auth::id())
@@ -73,6 +85,9 @@ class AttendanceController extends Controller
         return redirect()->route('attendance.index');
     }
 
+    /**
+     * 休憩開始打刻
+     */
     public function breakStart(Request $request)
     {
         $attendance = Attendance::where('user_id', Auth::id())
@@ -93,6 +108,9 @@ class AttendanceController extends Controller
         return redirect()->route('attendance.index');
     }
 
+    /**
+     * 休憩終了打刻
+     */
     public function breakEnd(Request $request)
     {
         $attendance = Attendance::where('user_id', Auth::id())
@@ -119,6 +137,9 @@ class AttendanceController extends Controller
         return redirect()->route('attendance.index');
     }
 
+    /**
+     * 勤怠詳細を表示（管理者と一般ユーザーで画面分岐）
+     */
     public function show($id, Request $request)
     {
         $attendance = Attendance::with('user', 'breakRecords')->findOrFail($id);
@@ -148,6 +169,9 @@ class AttendanceController extends Controller
         return view('attendance.show', compact('attendance', 'pendingRequest'));
     }
 
+    /**
+     * 勤怠修正申請の登録
+     */
     public function requestUpdate(AttendanceUpdateRequest $request, $id)
     {
         $attendance = Attendance::findOrFail($id);

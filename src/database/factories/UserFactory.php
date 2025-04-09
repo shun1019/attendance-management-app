@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Hash;
 
 class UserFactory extends Factory
 {
+    /**
+     * 一般ユーザーを作成
+     */
     public function definition()
     {
-        /**
-         * 一般ユーザーを作成
-         */
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
